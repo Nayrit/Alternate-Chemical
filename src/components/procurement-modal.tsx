@@ -51,9 +51,15 @@ export function ProcurementDesk({ dialog = false }: { dialog?: boolean }) {
         <div className="rounded-3xl border border-forest/12 bg-[#f8faf8] p-5 sm:p-8 3xl:p-10">
             <div>
                 <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">Procurement portal</p>
-                <h1 className="mt-2 max-w-3xl font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
-                  How ACIL will sell once the mill is up.
-                </h1>
+                {dialog ? (
+                  <h2 className="mt-2 max-w-3xl font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
+                    How ACIL will sell once the mill is up.
+                  </h2>
+                ) : (
+                  <h1 className="mt-2 max-w-3xl font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
+                    How ACIL will sell once the mill is up.
+                  </h1>
+                )}
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
                   There is no login and no password. This desk explains the commercial paths open
                   before commissioning in early 2027. Documents that will travel with a lot: TDS, COA,
@@ -123,6 +129,7 @@ export function ProcurementDesk({ dialog = false }: { dialog?: boolean }) {
                 </Link>
               )}
             </div>
+        </div>
     </>
   );
 
