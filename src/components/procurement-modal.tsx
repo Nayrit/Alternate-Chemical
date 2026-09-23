@@ -66,7 +66,7 @@ export function ProcurementModal() {
   return (
     <AnimatePresence>
       {procurementOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-center p-4">
+        <div className="fixed inset-0 z-50 grid place-items-end p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:place-items-center sm:p-6">
           <motion.button
             type="button"
             aria-label="Close procurement portal"
@@ -80,7 +80,7 @@ export function ProcurementModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="portal-title"
-            className="relative z-10 max-h-[90dvh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-[#f8faf8] p-6 shadow-2xl md:p-8"
+            className="relative z-10 max-h-[min(90dvh,52rem)] w-full max-w-3xl overflow-y-auto rounded-3xl bg-[#f8faf8] p-5 shadow-2xl sm:p-6 md:p-8 3xl:max-w-4xl"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}

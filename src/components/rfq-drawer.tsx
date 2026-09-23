@@ -82,16 +82,29 @@ export function RfqDrawer() {
       return false;
     }
     if (step === 3) {
-      if (companyName.trim().length < 2 || contact.trim().length < 2) {
+      const companyValue = companyName.trim();
+      const contactValue = contact.trim();
+      const emailValue = email.trim();
+      const phoneValue = phone.trim();
+      if (
+        companyValue.length < 2 ||
+        companyValue.length > 120 ||
+        contactValue.length < 2 ||
+        contactValue.length > 120
+      ) {
         setError("Enter the company and the person we should write to.");
         return false;
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (emailValue.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
         setError("Enter a valid work email.");
         return false;
       }
-      if (phone.trim().length < 6) {
+      if (phoneValue.length < 6 || phoneValue.length > 30 || /[<>]/.test(phoneValue)) {
         setError("Enter a phone number the commercial desk can reach.");
+        return false;
+      }
+      if (note.trim().length > 500) {
+        setError("Keep the note under 500 characters.");
         return false;
       }
     }
@@ -129,7 +142,7 @@ export function RfqDrawer() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="rfq-title"
-            className="fixed top-0 right-0 z-[60] flex h-dvh w-full max-w-xl flex-col bg-[#f8faf8] shadow-2xl"
+            className="fixed inset-y-0 right-0 z-[60] flex h-dvh w-full max-w-xl flex-col bg-[#f8faf8] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] shadow-2xl 3xl:max-w-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -309,19 +322,53 @@ export function RfqDrawer() {
                 ) : null}
                 {!reference && step === 3 ? (
                   <div className="space-y-3">
-                    <Field id="company" label="Company" value={companyName} onChange={setCompanyName} />
-                    <Field id="contact" label="Commercial contact" value={contact} onChange={setContact} />
-                    <Field id="email" label="Work email" value={email} onChange={setEmail} type="email" />
-                    <Field id="phone" label="Phone" value={phone} onChange={setPhone} type="tel" />
+                    <Field
+                      id="company"
+                      label="Company"
+                      value={companyName}
+                      onChange={setCompanyName}
+                      autoComplete="organization"
+                      maxLength={120}
+                    />
+                    <Field
+                      id="contact"
+                      label="Commercial contact"
+                      value={contact}
+                      onChange={setContact}
+                      autoComplete="name"
+                      maxLength={120}
+                    />
+                    <Field
+                      id="email"
+                      label="Work email"
+                      value={email}
+                      onChange={setEmail}
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      maxLength={120}
+                    />
+                    <Field
+                      id="phone"
+                      label="Phone"
+                      value={phone}
+                      onChange={setPhone}
+                      type="tel"
+                      autoComplete="tel"
+                      inputMode="tel"
+                      maxLength={30}
+                    />
                     <label className="block text-sm font-semibold" htmlFor="note">
                       Note <span className="font-normal text-muted">(optional)</span>
                     </label>
                     <textarea
                       id="note"
+                      name="note"
                       value={note}
-                      onChange={(event) => setNote(event.target.value)}
+                      maxLength={500}
+                      onChange={(event) => setNote(event.target.value.slice(0, 500))}
                       rows={3}
-                      className="w-full rounded-2xl border border-forest/15 bg-white px-3 py-2 text-sm outline-none focus:border-forest"
+                      className="w-full rounded-2xl border border-forest/15 bg-white px-3 py-2 text-base outline-none focus:border-forest sm:text-sm"
                     />
                     <Estimate sampleMode={sampleMode} bulk={bulk} sample={sample} sampleKg={sampleKg} product={product} volume={volume} />
                   </div>
@@ -364,22 +411,33 @@ function Field({
   value,
   onChange,
   type = "text",
+  autoComplete,
+  inputMode,
+  maxLength,
 }: {
   id: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
   type?: string;
+  autoComplete: string;
+  inputMode?: "text" | "email" | "tel";
+  maxLength: number;
 }) {
   return (
     <label className="block text-sm font-semibold" htmlFor={id}>
       {label}
       <input
         id={id}
+        name={id}
         type={type}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-1 w-full rounded-2xl border border-forest/15 bg-white px-3 py-2.5 text-sm font-normal outline-none focus:border-forest"
+        maxLength={maxLength}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        spellCheck={type === "email" ? false : undefined}
+        onChange={(event) => onChange(event.target.value.slice(0, maxLength))}
+        className="mt-1 min-h-11 w-full rounded-2xl border border-forest/15 bg-white px-3 py-2.5 text-base font-normal outline-none focus:border-forest sm:text-sm"
       />
     </label>
   );

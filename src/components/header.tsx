@@ -47,8 +47,24 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const onResize = () => {
+      if (window.innerWidth >= 1280) setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
+    <header className="fixed inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top)]">
       <div className="h-1 bg-forest" />
       <div className="h-[3px] bg-lime" />
       <div
@@ -57,7 +73,7 @@ export function Header() {
           scrolled && "shadow-[0_10px_30px_-24px_rgba(8,28,21,0.45)]",
         )}
       >
-        <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center gap-4 px-5 md:px-8">
+        <div className="shell flex h-[4.25rem] items-center gap-3 sm:gap-4">
           <a href="#top" className="shrink-0" aria-label="ACIL home">
             <Image
               src="/images/logo.png"
@@ -65,16 +81,18 @@ export function Header() {
               width={3043}
               height={643}
               priority
-              className="h-9 w-auto md:h-11"
+              sizes="(min-width: 120rem) 280px, (min-width: 48rem) 220px, 160px"
+              className="h-9 w-auto sm:h-10 md:h-11 3xl:h-14"
             />
           </a>
-          <nav className="ml-auto hidden items-center gap-x-4 xl:flex" aria-label="Primary">
+          <nav className="ml-auto hidden items-center gap-x-4 xl:flex 3xl:gap-x-6" aria-label="Primary">
             {nav.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
+                aria-current={active === item.id ? "true" : undefined}
                 className={cn(
-                  "text-[13px] font-medium tracking-tight text-ink/80 transition hover:text-forest",
+                  "text-[13px] font-medium tracking-tight text-ink/80 transition hover:text-forest 3xl:text-base",
                   active === item.id && "text-forest",
                 )}
               >
@@ -84,10 +102,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => openRfq({ intent: "sample", productIds: [] })}
-              className={cn(
-                "text-[13px] font-medium text-ink/80 transition hover:text-forest",
-                "cursor-pointer",
-              )}
+              className="cursor-pointer text-[13px] font-medium text-ink/80 transition hover:text-forest 3xl:text-base"
             >
               Sample Request
             </button>
@@ -96,15 +111,16 @@ export function Header() {
             <button
               type="button"
               onClick={() => openRfq({ intent: "quotation" })}
-              className="cursor-pointer whitespace-nowrap rounded-full bg-forest px-3.5 py-2 text-[13px] font-semibold text-white transition hover:bg-[#00562d]"
+              className="min-h-11 cursor-pointer whitespace-nowrap rounded-full bg-forest px-3.5 py-2 text-[13px] font-semibold text-white transition hover:bg-[#00562d] 3xl:px-5 3xl:text-sm"
             >
               <span className="xl:hidden">Quote</span>
               <span className="hidden xl:inline">Request Commercial Quotation</span>
             </button>
             <button
               type="button"
-              className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-forest/15 xl:hidden"
+              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-forest/15 xl:hidden"
               aria-expanded={open}
+              aria-controls="site-menu"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((value) => !value)}
             >
@@ -114,21 +130,24 @@ export function Header() {
         </div>
       </div>
       {open ? (
-        <div className="border-b border-forest/12 bg-[#f8faf8] px-5 py-4 xl:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-1" aria-label="Mobile">
+        <div
+          id="site-menu"
+          className="max-h-[calc(100dvh-5rem-env(safe-area-inset-top))] overflow-y-auto border-b border-forest/12 bg-[#f8faf8] px-[var(--shell-pad)] py-4 xl:hidden"
+        >
+          <nav className="mx-auto grid w-full max-w-[var(--shell-max)] grid-cols-1 gap-1 md:grid-cols-2" aria-label="Sections">
             {nav.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-base font-medium hover:bg-forest/5"
+                className="flex min-h-11 items-center rounded-xl px-3 py-3 text-base font-medium hover:bg-forest/5"
               >
                 {item.label}
               </a>
             ))}
             <button
               type="button"
-              className="rounded-xl px-3 py-3 text-left text-base font-medium hover:bg-forest/5"
+              className="flex min-h-11 cursor-pointer items-center rounded-xl px-3 py-3 text-left text-base font-medium hover:bg-forest/5"
               onClick={() => {
                 setOpen(false);
                 openRfq({ intent: "sample" });

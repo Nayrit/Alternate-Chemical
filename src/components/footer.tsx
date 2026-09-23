@@ -16,10 +16,10 @@ export function Footer() {
   return (
     <footer className="bg-ink text-white">
       <div className="bg-forest">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 md:px-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="shell flex flex-col gap-6 py-12 md:py-16 lg:flex-row lg:items-end lg:justify-between 3xl:py-20">
           <div className="max-w-2xl">
             <p className="font-mono text-[11px] tracking-[0.2em] text-lime uppercase">Partnership</p>
-            <h2 className="mt-3 font-headline text-4xl leading-tight tracking-tight">
+            <h2 className="mt-3 font-headline text-3xl leading-tight tracking-tight text-balance sm:text-4xl 3xl:text-5xl">
               Buyers, distributors, and investment partners are invited to build a domestic starch supply chain.
             </h2>
           </div>
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:px-8 lg:grid-cols-[1.3fr_0.8fr_1fr]">
+      <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr] 3xl:py-20">
         <div>
           <Image
             src="/images/logo.png"
@@ -51,7 +51,7 @@ export function Footer() {
             className="h-10 w-auto brightness-0 invert"
           />
           <p className="mt-4 max-w-sm text-sm leading-6 text-white/70">{company.tagline}</p>
-          <div className="mt-6 space-y-4 text-sm leading-6">
+          <address className="mt-6 space-y-4 text-sm leading-6 not-italic">
             <p>
               <span className="block font-semibold text-lime">{company.factory.label}</span>
               {company.factory.lines.map((line) => (
@@ -68,7 +68,7 @@ export function Footer() {
                 </span>
               ))}
             </p>
-          </div>
+          </address>
         </div>
         <div>
           <p className="font-mono text-[11px] tracking-[0.18em] text-lime uppercase">Quick links</p>
@@ -98,7 +98,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-5 py-6 md:px-8">
+        <div className="shell py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <p className="text-xs leading-5 text-white/55">
             © {new Date().getFullYear()} Alternate Chemical Industry Ltd. Design capacities describe the
             Habiganj plant at full commissioning (early 2027) and are taken from the Company Profile 2026.

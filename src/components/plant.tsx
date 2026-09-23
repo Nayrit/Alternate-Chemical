@@ -11,8 +11,8 @@ export function Plant() {
   const zone = plantZones.find((item) => item.id === selected) ?? plantZones[5];
 
   return (
-    <section id="sustainability" className="bg-ink px-5 py-20 text-white md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="sustainability" className="section-y bg-ink text-white">
+      <div className="shell">
         <SectionIntro
           index="06"
           eyebrow="Habiganj plant"
@@ -22,7 +22,7 @@ export function Plant() {
         />
         <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)]">
           <div className="overflow-x-auto rounded-3xl border border-white/10 bg-[#07160f] p-3">
-            <svg viewBox="0 0 1000 660" className="h-auto min-w-[760px] w-full" role="img" aria-label="Indicative Habiganj site layout">
+            <svg viewBox="0 0 1000 660" className="h-auto min-w-[36rem] w-full sm:min-w-0" role="img" aria-label="Indicative Habiganj site layout">
               <defs>
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                   <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(107,182,52,0.12)" strokeWidth="1" />
@@ -162,7 +162,7 @@ function CounterCard({
   return (
     <article className="rounded-3xl border border-white/10 bg-[#0c2418] p-6">
       <p className="font-mono text-[11px] tracking-[0.16em] text-lime uppercase">{label}</p>
-      <p className="mt-3 font-headline text-4xl tracking-tight text-white">
+      <p className="mt-3 font-headline text-3xl tracking-tight text-balance text-white sm:text-4xl 3xl:text-5xl">
         <CountUp value={value} suffix={suffix} />
       </p>
       <p className="mt-1 text-sm text-lime">{unit}</p>

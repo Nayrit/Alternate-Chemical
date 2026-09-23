@@ -12,8 +12,8 @@ export function ProcessFlow() {
   const share = step.yieldKg ? Math.round((step.yieldKg / FINISHED_KG_PER_DAY) * 1000) / 10 : null;
 
   return (
-    <section id="milling" className="bg-white px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="milling" className="section-y bg-white">
+      <div className="shell">
         <SectionIntro
           index="02"
           eyebrow="Milling technology"
@@ -22,7 +22,7 @@ export function ProcessFlow() {
         />
         <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           <div
-            className="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"
             onPointerMove={(event) => {
               if (!event.movementX && !event.movementY) return;
               const id = (event.target as HTMLElement).closest("button")?.getAttribute("data-step");
@@ -39,7 +39,7 @@ export function ProcessFlow() {
                   onClick={() => setActive(item.id)}
                   onFocus={() => setActive(item.id)}
                   className={cn(
-                    "min-w-[240px] cursor-pointer rounded-2xl border px-4 py-4 text-left transition duration-300 lg:min-w-0",
+                    "min-h-11 min-w-[220px] shrink-0 snap-start cursor-pointer rounded-2xl border px-4 py-4 text-left transition duration-300 sm:min-w-[240px] lg:min-w-0 lg:shrink",
                     selected
                       ? "border-lime/50 bg-ink text-white shadow-[0_18px_40px_-28px_rgba(107,182,52,0.9)]"
                       : "border-forest/12 bg-surface hover:-translate-y-0.5 hover:border-lime/40 hover:shadow-[0_18px_40px_-28px_rgba(107,182,52,0.7)]",

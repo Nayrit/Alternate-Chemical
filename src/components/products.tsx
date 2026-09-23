@@ -20,8 +20,8 @@ export function Products() {
     filter === "all" ? products : products.filter((product) => product.categories.includes(filter));
 
   return (
-    <section id="products" className="bg-surface px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="products" className="section-y bg-surface">
+      <div className="shell">
         <SectionIntro
           index="03"
           eyebrow="Product portfolio"
@@ -44,7 +44,7 @@ export function Products() {
                 aria-selected={selected}
                 onClick={() => setFilter(item.id)}
                 className={cn(
-                  "shrink-0 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition",
+                  "min-h-11 shrink-0 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition",
                   selected
                     ? "border-forest bg-forest text-white"
                     : "border-forest/15 bg-white text-ink hover:border-lime/50",
@@ -58,7 +58,7 @@ export function Products() {
             );
           })}
         </div>
-        <motion.div layout className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <motion.div layout className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {visible.map((product) => (
               <ProductCard
@@ -109,7 +109,7 @@ function ProductCard({
       transition={{ duration: 0.35 }}
       className={cn(
         "flex flex-col rounded-3xl border border-forest/12 bg-white p-5 transition hover:border-lime/40 hover:shadow-[0_22px_44px_-28px_rgba(107,182,52,0.9)]",
-        wide && "md:col-span-2 xl:col-span-2",
+        wide && "md:col-span-2 xl:col-span-2 3xl:col-span-2",
       )}
     >
       <div className="flex items-start justify-between gap-3">

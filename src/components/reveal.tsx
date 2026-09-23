@@ -41,7 +41,7 @@ export function SectionIntro({
   invert?: boolean;
 }) {
   return (
-    <Reveal className="max-w-3xl">
+    <Reveal className="max-w-3xl 3xl:max-w-4xl">
       <p
         className={cn(
           "font-mono text-[11px] tracking-[0.22em] uppercase",
@@ -52,7 +52,7 @@ export function SectionIntro({
       </p>
       <h2
         className={cn(
-          "mt-3 font-headline text-4xl leading-[0.98] tracking-tight md:text-5xl",
+          "mt-3 font-headline text-3xl leading-[0.98] tracking-tight text-balance sm:text-4xl md:text-5xl 3xl:text-6xl",
           invert ? "text-white" : "text-ink",
         )}
       >

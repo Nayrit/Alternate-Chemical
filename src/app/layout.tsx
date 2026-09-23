@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans, Syne } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -24,18 +25,58 @@ const plex = IBM_Plex_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Alternate Chemical Industry Ltd. | Agro-Industrial Starch",
-  description:
-    "Alternate Chemical Industry Ltd. (ACIL) is commissioning a UNIDO best-practice corn wet mill in Habiganj, Bangladesh: 150 TPD crushing, six fractionated streams, and a 100 TPD modified starch line.",
-  keywords: [
-    "Alternate Chemical Industry",
-    "ACIL",
-    "corn starch Bangladesh",
-    "modified starch",
-    "Habiganj",
-    "wet milling",
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#006837" },
+    { media: "(prefers-color-scheme: dark)", color: "#081C15" },
   ],
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | Agro-Industrial Starch`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "manufacturing",
+  keywords: [...SITE_KEYWORDS],
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Agro-Industrial Starch`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Agro-Industrial Starch`,
+    description: SITE_DESCRIPTION,
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -44,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full bg-surface font-sans text-ink">
         <a
           href="#top"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-[max(0.75rem,env(safe-area-inset-top))] focus:left-[max(0.75rem,env(safe-area-inset-left))] focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"
         >
           Skip to content
         </a>

@@ -21,15 +21,15 @@ export function Market() {
   const maxOrigin = Math.max(...starchImports.map((row) => row.tonnes));
 
   return (
-    <section id="advantage" className="bg-surface px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="advantage" className="section-y bg-surface">
+      <div className="shell">
         <SectionIntro
           index="05"
           eyebrow="Import substitution"
           title="Domestic capacity against a 67% tariff on imported starch."
           lede="Maize starch imported into Bangladesh in 2023 totalled 11,604 tonnes, worth $5.83 million. ACIL’s native-starch design capacity is 23,100 MT a year, about twice that import volume, while the corn it buys carries zero duty."
         />
-        <div className="mt-8 inline-flex rounded-full border border-forest/15 bg-white p-1">
+        <div className="mt-8 inline-flex max-w-full flex-wrap rounded-full border border-forest/15 bg-white p-1">
           {(
             [
               ["volume", "Annual volume"],
@@ -41,7 +41,7 @@ export function Market() {
               type="button"
               onClick={() => setView(id)}
               className={cn(
-                "cursor-pointer rounded-full px-4 py-2 text-sm font-semibold transition",
+                "min-h-11 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold transition",
                 view === id ? "bg-forest text-white" : "text-ink hover:text-forest",
               )}
             >

@@ -1,4 +1,5 @@
 import { Header } from "@/components/header";
+import { JsonLd } from "@/components/json-ld";
 import { Hero } from "@/components/hero";
 import { Company } from "@/components/company";
 import { ProcessFlow } from "@/components/process-flow";
@@ -11,6 +12,7 @@ import { Footer } from "@/components/footer";
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Header />
       <main>
         <Hero />

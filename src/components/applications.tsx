@@ -10,8 +10,8 @@ export function Applications() {
   const { setFilter } = useSite();
 
   return (
-    <section id="applications" className="bg-white px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="applications" className="section-y bg-white">
+      <div className="shell">
         <SectionIntro
           index="04"
           eyebrow="Industrial applications"

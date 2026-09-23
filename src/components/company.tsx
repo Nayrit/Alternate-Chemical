@@ -4,8 +4,8 @@ import { Reveal, SectionIntro } from "@/components/reveal";
 
 export function Company() {
   return (
-    <section id="company" className="bg-surface px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section id="company" className="section-y bg-surface">
+      <div className="shell">
         <SectionIntro
           index="01"
           eyebrow="Company"
@@ -19,7 +19,7 @@ export function Company() {
               delay={index * 0.06}
               className="rounded-3xl border border-forest/12 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-lime/40 hover:shadow-[0_22px_40px_-28px_rgba(107,182,52,0.85)]"
             >
-              <p className="font-headline text-3xl tracking-tight text-forest">{item.figure}</p>
+              <p className="font-headline text-2xl tracking-tight text-balance text-forest sm:text-3xl 3xl:text-4xl">{item.figure}</p>
               <p className="mt-3 font-semibold text-ink">{item.label}</p>
               <p className="mt-2 text-sm leading-6 text-muted">{item.detail}</p>
             </Reveal>
@@ -28,13 +28,13 @@ export function Company() {
         <div className="mt-8 grid gap-4 lg:grid-cols-2">
           <Reveal className="rounded-3xl border border-forest/12 bg-ink p-8 text-white">
             <p className="font-mono text-[11px] tracking-[0.2em] text-lime uppercase">Vision</p>
-            <p className="mt-4 font-headline text-3xl leading-tight tracking-tight">
+            <p className="mt-4 font-headline text-2xl leading-tight tracking-tight text-balance sm:text-3xl 3xl:text-4xl">
               Bangladesh as a self-reliant producer of the starch and derivative ingredients its industries depend on.
             </p>
           </Reveal>
           <Reveal delay={0.08} className="rounded-3xl border border-forest/12 bg-white p-8">
             <p className="font-mono text-[11px] tracking-[0.2em] text-forest uppercase">Mission</p>
-            <p className="mt-4 font-headline text-3xl leading-tight tracking-tight text-ink">
+            <p className="mt-4 font-headline text-2xl leading-tight tracking-tight text-balance text-ink sm:text-3xl 3xl:text-4xl">
               Convert local agricultural output into food, pharmaceutical, and industrial-grade ingredients at international quality and competitive cost.
             </p>
           </Reveal>
