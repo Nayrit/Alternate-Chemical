@@ -45,7 +45,7 @@ const graph = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/#webpage`,
       url: SITE_URL,
-      name: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
+      name: "Alternate Chemical Industry Ltd. | Corn Starch Manufacturer, Bangladesh",
       description: SITE_DESCRIPTION,
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#organization` },

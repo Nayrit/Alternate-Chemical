@@ -62,7 +62,9 @@ export function pageMeta(
 export const SITE_KEYWORDS = [
   "Alternate Chemical Industry Ltd",
   "ACIL",
+  "corn starch manufacturer Bangladesh",
   "corn starch Bangladesh",
+  "starch supplier Habiganj",
   "native corn starch",
   "modified starch",
   "oxidized starch",

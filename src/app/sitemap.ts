@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}${route.path === "/" ? "" : route.path}`,
     lastModified: new Date("2026-09-23"),
     changeFrequency: "monthly" as const,
-    priority: route.path === "/" ? 1 : 0.8,
+    priority: route.path === "/" ? 1 : route.path === "/products" ? 0.9 : 0.8,
   }));
   const grades = products.map((product) => ({
     url: `${SITE_URL}/products/${product.id}`,

@@ -251,3 +251,58 @@ export function ProductNeighbors({ product }: { product: Product }) {
     </section>
   );
 }
+
+const companyFaq = [
+  {
+    question: "Where is Alternate Chemical Industry Ltd.?",
+    answer:
+      "The factory is on Satian Road, Ratanpur, Madhobpur, Habiganj. The corporate office is Suite 7A-7B and 15D1-15D2, Paramount Heights, 65/2/1 Culvert Road, Dhaka 1000.",
+  },
+  {
+    question: "When does the Habiganj corn mill commission?",
+    answer:
+      "Machinery integration runs through the end of 2026. Full commissioning is scheduled for early 2027. The capacities on this site are design figures.",
+  },
+  {
+    question: "What does ACIL produce?",
+    answer:
+      "Six streams from one wet mill: native corn starch, modified starch, corn fiber, corn germ, gluten powder, and corn steep liquor.",
+  },
+  {
+    question: "How much corn can the mill crush?",
+    answer:
+      "The design crush is 150,000 kg of local corn a day, with 130,500 kg a day of finished output over 330 operating days.",
+  },
+];
+
+export function CompanyFaq() {
+  const json = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: companyFaq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  }).replace(/</g, "\\u003c");
+
+  return (
+    <section className="section-y bg-surface">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
+      <div className="shell">
+        <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">Questions</p>
+        <h2 className="mt-3 max-w-3xl font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
+          Where the mill is, when it starts, and what it makes.
+        </h2>
+        <dl className="mt-8 grid gap-4">
+          {companyFaq.map((item) => (
+            <div key={item.question} className="rounded-3xl border border-forest/12 bg-white p-6">
+              <dt className="font-headline text-xl tracking-tight text-ink">{item.question}</dt>
+              <dd className="mt-2 text-sm leading-6 text-muted">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}

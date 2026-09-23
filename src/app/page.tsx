@@ -9,7 +9,7 @@ import { Products } from "@/components/products";
 import { SITE_DESCRIPTION, pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
+  "Alternate Chemical Industry Ltd. | Corn Starch Manufacturer, Bangladesh",
   SITE_DESCRIPTION,
   "/",
   { absolute: true },

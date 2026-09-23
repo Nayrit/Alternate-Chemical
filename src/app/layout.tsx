@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
+    default: "Alternate Chemical Industry Ltd. | Corn Starch Manufacturer, Bangladesh",
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -67,12 +67,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: SITE_NAME,
-    title: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
+    title: "Alternate Chemical Industry Ltd. | Corn Starch Manufacturer, Bangladesh",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
+    title: "Alternate Chemical Industry Ltd. | Corn Starch Manufacturer, Bangladesh",
     description: SITE_DESCRIPTION,
   },
   formatDetection: {

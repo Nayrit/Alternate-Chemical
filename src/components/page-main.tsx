@@ -21,7 +21,7 @@ export function Crumb({
 }) {
   const trail = [
     { name: "Home", href: "/" },
-    ...(parent ? [parent] : []),
+    ...(parent ? [{ name: parent.label, href: parent.href }] : []),
     { name: label, href },
   ];
   const json = JSON.stringify({

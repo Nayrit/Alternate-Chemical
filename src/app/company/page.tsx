@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Company } from "@/components/company";
-import { CompanyDepth } from "@/components/deeper";
+import { CompanyDepth, CompanyFaq } from "@/components/deeper";
 import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
@@ -16,6 +16,7 @@ export default function CompanyPage() {
       <Crumb label="Company" href="/company" />
       <Company />
       <CompanyDepth />
+      <CompanyFaq />
     </PageMain>
   );
 }
