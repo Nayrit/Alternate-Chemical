@@ -1,7 +1,16 @@
 const FALLBACK_SITE_URL = "http://localhost:3000";
 
+function configuredOrigin() {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (explicit) return explicit;
+  const vercel =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() || process.env.VERCEL_URL?.trim();
+  if (!vercel) return "";
+  return /^https?:\/\//i.test(vercel) ? vercel : `https://${vercel}`;
+}
+
 function readSiteUrl() {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const raw = configuredOrigin();
   if (!raw) return FALLBACK_SITE_URL;
   try {
     const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
