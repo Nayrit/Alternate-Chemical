@@ -4,8 +4,8 @@ import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta(
-  "Commercial request",
-  "Stage a non-binding planning quotation or an evaluation sample request for ACIL starch and co-products.",
+  "Request Corn Starch Quotation or Sample",
+  "Stage a non-binding planning quotation or an evaluation sample for ACIL native starch, modified starch, and co-products.",
   "/request",
 );
 
@@ -23,7 +23,10 @@ export default async function RequestPage({
 
   return (
     <PageMain>
-      <Crumb label={intent === "sample" ? "Sample request" : "Commercial quotation"} />
+      <Crumb
+        label={intent === "sample" ? "Sample request" : "Commercial quotation"}
+        href="/request"
+      />
       <RequestForm key={`${intent}:${productIds.join(",")}`} intent={intent} productIds={productIds} />
     </PageMain>
   );

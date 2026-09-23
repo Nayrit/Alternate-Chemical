@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Agro-Industrial Starch`,
+    default: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -67,12 +67,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} | Agro-Industrial Starch`,
+    title: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Agro-Industrial Starch`,
+    title: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
     description: SITE_DESCRIPTION,
   },
   formatDetection: {
@@ -83,8 +83,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${syne.variable} ${plex.variable} h-full antialiased`}>
-      <body className="min-h-full bg-surface font-sans text-ink">
+    <html
+      lang="en"
+      className={`${jakarta.variable} ${syne.variable} ${plex.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-full bg-surface font-sans text-ink" suppressHydrationWarning>
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-[max(0.75rem,env(safe-area-inset-top))] focus:left-[max(0.75rem,env(safe-area-inset-left))] focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"

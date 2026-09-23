@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +41,9 @@ export function SectionIntro({
   lede: string;
   invert?: boolean;
 }) {
+  const pathname = usePathname();
+  const Heading = pathname === "/" ? "h2" : "h1";
+
   return (
     <Reveal className="max-w-3xl 3xl:max-w-4xl">
       <p
@@ -50,14 +54,14 @@ export function SectionIntro({
       >
         {index}. {eyebrow}
       </p>
-      <h2
+      <Heading
         className={cn(
           "mt-3 font-headline text-3xl leading-[0.98] tracking-tight text-balance sm:text-4xl md:text-5xl 3xl:text-6xl",
           invert ? "text-white" : "text-ink",
         )}
       >
         {title}
-      </h2>
+      </Heading>
       <p className={cn("mt-5 text-base leading-7 md:text-lg", invert ? "text-white/75" : "text-muted")}>
         {lede}
       </p>

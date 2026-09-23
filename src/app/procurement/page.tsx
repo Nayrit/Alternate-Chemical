@@ -4,15 +4,15 @@ import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta(
-  "Procurement",
-  "Commercial paths for direct buyers, distributors, and offtake partners ahead of ACIL commissioning in early 2027.",
+  "Buy Corn Starch from ACIL",
+  "Commercial paths for direct buyers, distributors, and offtake partners ahead of ACIL commissioning in Habiganj in early 2027.",
   "/procurement",
 );
 
 export default function ProcurementPage() {
   return (
     <PageMain>
-      <Crumb label="Procurement" />
+      <Crumb label="Procurement" href="/procurement" />
       <ProcurementDesk />
     </PageMain>
   );

@@ -5,15 +5,15 @@ import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta(
-  "Industrial applications",
-  "Food, pharmaceutical, textile sizing, and feed uses for ACIL corn starch and kernel fractions.",
+  "Textile Sizing, Food, Pharma, and Feed Starch",
+  "Food, pharmaceutical excipient, textile sizing, and feed uses for ACIL native starch, modified starch, and kernel fractions from Habiganj.",
   "/applications",
 );
 
 export default function ApplicationsPage() {
   return (
     <PageMain>
-      <Crumb label="Industrial applications" />
+      <Crumb label="Industrial applications" href="/applications" />
       <Applications />
       <ApplicationDepth />
     </PageMain>

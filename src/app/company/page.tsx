@@ -5,15 +5,15 @@ import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta(
-  "Company",
-  "Alternate Chemical Industry Ltd. is commissioning a corn wet mill in Madhobpur, Habiganj, with a corporate office in Dhaka.",
+  "Corn Wet Mill in Habiganj",
+  "Alternate Chemical Industry Ltd. is commissioning a corn wet mill on Satian Road, Ratanpur, Madhobpur, Habiganj, with a corporate office in Dhaka 1000.",
   "/company",
 );
 
 export default function CompanyPage() {
   return (
     <PageMain>
-      <Crumb label="Company" />
+      <Crumb label="Company" href="/company" />
       <Company />
       <CompanyDepth />
     </PageMain>

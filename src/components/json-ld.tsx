@@ -5,14 +5,22 @@ const graph = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "Manufacturer"],
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      alternateName: "ACIL",
+      alternateName: ["ACIL", "Alternate Chemical"],
       url: SITE_URL,
       logo: `${SITE_URL}/images/logo.png`,
       description: SITE_DESCRIPTION,
       slogan: company.tagline,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Suite 7A-7B & 15D1-15D2, Paramount Heights, 65/2/1 Culvert Road",
+        addressLocality: "Dhaka",
+        postalCode: "1000",
+        addressCountry: "BD",
+      },
+      location: { "@id": `${SITE_URL}/#factory` },
       areaServed: { "@type": "Country", name: "Bangladesh" },
       knowsAbout: [
         "Corn wet milling",
@@ -37,7 +45,7 @@ const graph = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/#webpage`,
       url: SITE_URL,
-      name: `${SITE_NAME} | Agro-Industrial Starch`,
+      name: "Corn Starch Manufacturer in Bangladesh | Alternate Chemical Industry Ltd.",
       description: SITE_DESCRIPTION,
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#organization` },

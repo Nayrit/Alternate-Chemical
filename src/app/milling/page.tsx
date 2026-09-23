@@ -5,15 +5,15 @@ import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta(
-  "Milling technology",
-  "How the Habiganj wet mill separates corn into starch, fiber, germ, gluten, and steep liquor, with a 33,000 MT silo buffer.",
+  "Corn Wet Milling in Habiganj",
+  "How the ACIL Habiganj wet mill separates local corn into starch, fiber, germ, gluten, and steep liquor, with a 33,000 MT silo buffer.",
   "/milling",
 );
 
 export default function MillingPage() {
   return (
     <PageMain>
-      <Crumb label="Milling technology" />
+      <Crumb label="Milling technology" href="/milling" />
       <ProcessFlow />
       <MillingDepth />
     </PageMain>
