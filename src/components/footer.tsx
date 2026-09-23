@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { company, nav } from "@/lib/data";
-import { useSite } from "@/components/site-context";
 
 const seals = [
   { kicker: "FAO", title: "Aligned quality", detail: "Intake, process, and final grading" },
@@ -11,8 +11,6 @@ const seals = [
 ];
 
 export function Footer() {
-  const { openRfq } = useSite();
-
   return (
     <footer className="bg-ink text-white">
       <div className="bg-forest">
@@ -24,32 +22,29 @@ export function Footer() {
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button
-              type="button"
-              onClick={() => openRfq({ intent: "quotation" })}
-              className="cursor-pointer rounded-full bg-lime px-5 py-3 text-sm font-semibold text-ink"
-            >
+            <Link href="/request" className="rounded-full bg-lime px-5 py-3 text-center text-sm font-semibold text-ink">
               Request Commercial Quotation
-            </button>
-            <button
-              type="button"
-              onClick={() => openRfq({ intent: "sample" })}
-              className="cursor-pointer rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white"
+            </Link>
+            <Link
+              href="/request?intent=sample"
+              className="rounded-full border border-white/30 px-5 py-3 text-center text-sm font-semibold text-white"
             >
               Sample Request
-            </button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr] 3xl:py-20">
         <div>
-          <Image
-            src="/images/logo.png"
-            alt="Alternate Chemical Industry Ltd."
-            width={3043}
-            height={643}
-            className="h-10 w-auto brightness-0 invert"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="Alternate Chemical Industry Ltd."
+              width={3043}
+              height={643}
+              className="h-10 w-auto brightness-0 invert"
+            />
+          </Link>
           <p className="mt-4 max-w-sm text-sm leading-6 text-white/70">{company.tagline}</p>
           <address className="mt-6 space-y-4 text-sm leading-6 not-italic">
             <p>
@@ -75,15 +70,20 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {nav.map((item) => (
               <li key={item.id}>
-                <a href={item.href} className="text-white/80 hover:text-white">
+                <Link href={item.href} className="text-white/80 hover:text-white">
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
-              <a href="#advantage" className="text-white/80 hover:text-white">
+              <Link href="/import-substitution" className="text-white/80 hover:text-white">
                 Import substitution
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/procurement" className="text-white/80 hover:text-white">
+                Procurement
+              </Link>
             </li>
           </ul>
         </div>

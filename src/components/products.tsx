@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, FileDown, FlaskConical } from "lucide-react";
 import { FINISHED_KG_PER_DAY, products, sectors, type Product, type Sector } from "@/lib/data";
@@ -14,8 +16,15 @@ const filters: { id: Sector | "all"; label: string }[] = [
   ...sectors.map((sector) => ({ id: sector.id, label: sector.label })),
 ];
 
-export function Products() {
-  const { filter, setFilter, tray, toggleTray } = useSite();
+export function Products({ initialFilter = "all" }: { initialFilter?: Sector | "all" }) {
+  const { tray, toggleTray } = useSite();
+  const router = useRouter();
+  const [filter, setFilter] = useState<Sector | "all">(initialFilter);
+
+  const select = (id: Sector | "all") => {
+    setFilter(id);
+    router.replace(id === "all" ? "/products" : `/products?sector=${id}`, { scroll: false });
+  };
   const visible =
     filter === "all" ? products : products.filter((product) => product.categories.includes(filter));
 
@@ -42,7 +51,7 @@ export function Products() {
                 type="button"
                 role="tab"
                 aria-selected={selected}
-                onClick={() => setFilter(item.id)}
+                onClick={() => select(item.id)}
                 className={cn(
                   "min-h-11 shrink-0 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition",
                   selected
@@ -115,7 +124,11 @@ function ProductCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] tracking-[0.16em] text-forest uppercase">{product.code}</p>
-          <h3 className="mt-2 font-headline text-2xl tracking-tight text-ink">{product.name}</h3>
+          <h3 className="mt-2 font-headline text-2xl tracking-tight text-ink">
+            <Link href={`/products/${product.id}`} className="hover:text-forest">
+              {product.name}
+            </Link>
+          </h3>
         </div>
         <span className="shrink-0 rounded-full bg-lime/15 px-3 py-1 font-mono text-xs font-medium text-forest">
           {product.yieldKg.toLocaleString("en-US")} kg/day

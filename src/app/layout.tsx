@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans, Syne } from "next/font/google";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -84,12 +86,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${jakarta.variable} ${syne.variable} ${plex.variable} h-full antialiased`}>
       <body className="min-h-full bg-surface font-sans text-ink">
         <a
-          href="#top"
+          href="#content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-[max(0.75rem,env(safe-area-inset-top))] focus:left-[max(0.75rem,env(safe-area-inset-left))] focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"
         >
           Skip to content
         </a>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

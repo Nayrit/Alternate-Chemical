@@ -78,6 +78,7 @@ const graph = {
           "@type": "Product",
           name: product.name,
           sku: product.code,
+          url: `${SITE_URL}/products/${product.id}`,
           description: product.summary,
           brand: { "@type": "Brand", name: "ACIL" },
           manufacturer: { "@id": `${SITE_URL}/#organization` },

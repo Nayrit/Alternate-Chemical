@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import {
   lanes,
   products,
@@ -17,13 +16,20 @@ import { useSite } from "@/components/site-context";
 
 const steps = ["Sector", "Product & volume", "Delivery", "Company & estimate"];
 
-export function RfqDrawer() {
-  const { rfqOpen, closeRfq, rfqSession, launch, clearTray } = useSite();
-  const [seenSession, setSeenSession] = useState(0);
+export function RequestForm({
+  intent = "quotation",
+  productIds = [],
+}: {
+  intent?: "sample" | "quotation";
+  productIds?: string[];
+}) {
+  const { clearTray } = useSite();
+  const incoming = productIds.filter((id) => productById(id));
+  const sampleMode = intent === "sample";
   const [step, setStep] = useState(0);
   const [sector, setSector] = useState<Sector>("food");
-  const [productId, setProductId] = useState("native");
-  const [sampleIds, setSampleIds] = useState<string[]>([]);
+  const [productId, setProductId] = useState(incoming[0] ?? "native");
+  const [sampleIds, setSampleIds] = useState<string[]>(incoming);
   const [volume, setVolume] = useState(40);
   const [sampleKg, setSampleKg] = useState<1 | 5 | 25>(5);
   const [lane, setLane] = useState<LaneId>("habiganj");
@@ -35,47 +41,12 @@ export function RfqDrawer() {
   const [error, setError] = useState("");
   const [reference, setReference] = useState<string | null>(null);
 
-  if (rfqOpen && seenSession !== rfqSession) {
-    const incoming = launch.productIds.filter((id) => productById(id));
-    setSeenSession(rfqSession);
-    setStep(0);
-    setSector(launch.sector ?? "food");
-    setSampleIds(incoming);
-    setProductId(incoming[0] ?? sectorLeadProduct[launch.sector ?? "food"]);
-    setVolume(40);
-    setSampleKg(5);
-    setLane("habiganj");
-    setCompanyName("");
-    setContact("");
-    setEmail("");
-    setPhone("");
-    setNote("");
-    setError("");
-    setReference(null);
-  }
-
-  useEffect(() => {
-    if (!rfqOpen) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeRfq();
-    };
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = previous;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [rfqOpen, closeRfq]);
-
   const product = productById(productId) ?? products[0];
   const bulk = useMemo(() => quoteBulk(product, volume, lane), [product, volume, lane]);
   const sample = useMemo(
     () => quoteSample(sampleIds.length ? sampleIds : [productId], lane),
     [sampleIds, productId, lane],
   );
-  const sampleMode = launch.intent === "sample";
-
   const validate = () => {
     if (step === 1 && sampleMode && sampleIds.length === 0) {
       setError("Select at least one product for the sample set.");
@@ -126,45 +97,16 @@ export function RfqDrawer() {
   };
 
   return (
-    <AnimatePresence>
-      {rfqOpen ? (
-        <>
-          <motion.button
-            type="button"
-            aria-label="Close request"
-            className="fixed inset-0 z-50 bg-ink/55 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeRfq}
-          />
-          <motion.aside
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="rfq-title"
-            className="fixed inset-y-0 right-0 z-[60] flex h-dvh w-full max-w-xl flex-col bg-[#f8faf8] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] shadow-2xl 3xl:max-w-2xl"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 320, damping: 34 }}
-          >
-            <div className="flex items-start justify-between gap-4 border-b border-forest/12 px-5 py-4">
-              <div>
-                <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">
-                  {sampleMode ? "Sample request" : "Commercial quotation"}
-                </p>
-                <h2 id="rfq-title" className="mt-1 font-headline text-2xl tracking-tight text-ink">
-                  {sampleMode ? "Evaluation samples" : "Request a planning quotation"}
-                </h2>
-              </div>
-              <button
-                type="button"
-                onClick={closeRfq}
-                className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-forest/15"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
+    <section className="section-y bg-surface">
+      <div className="shell">
+        <div className="mx-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-forest/12 bg-[#f8faf8] 3xl:max-w-4xl">
+            <div className="border-b border-forest/12 px-5 py-5 sm:px-8">
+              <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">
+                {sampleMode ? "Sample request" : "Commercial quotation"}
+              </p>
+              <h1 className="mt-2 font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
+                {sampleMode ? "Evaluation samples" : "Request a planning quotation"}
+              </h1>
             </div>
             <ol className="grid grid-cols-4 gap-2 px-5 py-4">
               {steps.map((label, index) => (
@@ -221,7 +163,7 @@ export function RfqDrawer() {
                           checked={sector === item.id}
                           onChange={() => {
                             setSector(item.id);
-                            if (!launch.productIds.length) setProductId(sectorLeadProduct[item.id]);
+                            if (!incoming.length) setProductId(sectorLeadProduct[item.id]);
                           }}
                         />
                         <span className="block font-semibold text-ink">{item.label}</span>
@@ -388,9 +330,9 @@ export function RfqDrawer() {
                   Back
                 </button>
                 {reference ? (
-                  <button type="button" onClick={closeRfq} className="cursor-pointer rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-white">
-                    Close
-                  </button>
+                  <Link href="/products" className="rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-white">
+                    Back to products
+                  </Link>
                 ) : (
                   <button type="submit" className="cursor-pointer rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-white">
                     {step < 3 ? "Continue" : sampleMode ? "Stage sample request" : "Stage quotation"}
@@ -398,10 +340,9 @@ export function RfqDrawer() {
                 )}
               </div>
             </form>
-          </motion.aside>
-        </>
-      ) : null}
-    </AnimatePresence>
+        </div>
+      </div>
+    </section>
   );
 }
 

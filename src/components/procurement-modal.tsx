@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useSite } from "@/components/site-context";
 
 const seats = [
   {
@@ -42,69 +40,25 @@ const engagements = [
   },
 ] as const;
 
-export function ProcurementModal() {
-  const { procurementOpen, closeProcurement, openRfq } = useSite();
+export function ProcurementDesk() {
   const [seat, setSeat] = useState<(typeof seats)[number]["id"]>("buyer");
   const [engagement, setEngagement] = useState<(typeof engagements)[number]["id"]>("quarter");
-
-  useEffect(() => {
-    if (!procurementOpen) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeProcurement();
-    };
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = previous;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [procurementOpen, closeProcurement]);
-
   const chosen = engagements.find((item) => item.id === engagement) ?? engagements[1];
 
   return (
-    <AnimatePresence>
-      {procurementOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-end p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:place-items-center sm:p-6">
-          <motion.button
-            type="button"
-            aria-label="Close procurement portal"
-            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeProcurement}
-          />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="portal-title"
-            className="relative z-10 max-h-[min(90dvh,52rem)] w-full max-w-3xl overflow-y-auto rounded-3xl bg-[#f8faf8] p-5 shadow-2xl sm:p-6 md:p-8 3xl:max-w-4xl"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12 }}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
+    <section className="section-y bg-surface">
+      <div className="shell">
+        <div className="rounded-3xl border border-forest/12 bg-[#f8faf8] p-5 sm:p-8 3xl:p-10">
+            <div>
                 <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">Procurement portal</p>
-                <h2 id="portal-title" className="mt-2 font-headline text-3xl tracking-tight text-ink">
+                <h1 className="mt-2 max-w-3xl font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
                   How ACIL will sell once the mill is up.
-                </h2>
+                </h1>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
                   There is no login and no password. This desk explains the commercial paths open
                   before commissioning in early 2027. Documents that will travel with a lot: TDS, COA,
                   SDS, and a proforma from the Dhaka office.
                 </p>
-              </div>
-              <button
-                type="button"
-                onClick={closeProcurement}
-                className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-forest/15"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
             </div>
             <p className="mt-6 text-sm font-semibold">Your seat</p>
             <div className="mt-2 grid gap-2 md:grid-cols-3">
@@ -152,24 +106,15 @@ export function ProcurementModal() {
               </p>
             </div>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-end">
-              <button
-                type="button"
-                onClick={closeProcurement}
-                className="cursor-pointer rounded-full border border-forest/15 px-5 py-2.5 text-sm font-semibold"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                onClick={() => openRfq({ intent: engagement === "spot" ? "sample" : "quotation" })}
-                className="cursor-pointer rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink"
+              <Link
+                href={engagement === "spot" ? "/request?intent=sample" : "/request"}
+                className="inline-flex min-h-11 items-center justify-center rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink"
               >
                 Continue to {engagement === "spot" ? "sample request" : "quotation"}
-              </button>
+              </Link>
             </div>
-          </motion.div>
         </div>
-      ) : null}
-    </AnimatePresence>
+      </div>
+    </section>
   );
 }

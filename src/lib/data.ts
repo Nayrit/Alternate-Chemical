@@ -36,11 +36,23 @@ export const company = {
 };
 
 export const nav = [
-  { href: "#company", id: "company", label: "Company" },
-  { href: "#milling", id: "milling", label: "Milling Tech" },
-  { href: "#products", id: "products", label: "Products" },
-  { href: "#applications", id: "applications", label: "Industrial Applications" },
-  { href: "#sustainability", id: "sustainability", label: "Sustainability" },
+  { href: "/company", id: "company", label: "Company" },
+  { href: "/milling", id: "milling", label: "Milling Tech" },
+  { href: "/products", id: "products", label: "Products" },
+  { href: "/applications", id: "applications", label: "Industrial Applications" },
+  { href: "/sustainability", id: "sustainability", label: "Sustainability" },
+] as const;
+
+export const siteRoutes = [
+  { path: "/", title: "Home" },
+  { path: "/company", title: "Company" },
+  { path: "/milling", title: "Milling technology" },
+  { path: "/products", title: "Products" },
+  { path: "/applications", title: "Industrial applications" },
+  { path: "/import-substitution", title: "Import substitution" },
+  { path: "/sustainability", title: "Sustainability" },
+  { path: "/procurement", title: "Procurement" },
+  { path: "/request", title: "Commercial request" },
 ] as const;
 
 export const sectors: {

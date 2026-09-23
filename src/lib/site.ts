@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 const FALLBACK_SITE_URL = "http://localhost:3000";
 
 function configuredOrigin() {
@@ -29,6 +31,23 @@ export const SITE_NAME = "Alternate Chemical Industry Ltd.";
 
 export const SITE_DESCRIPTION =
   "Alternate Chemical Industry Ltd. (ACIL) designs a UNIDO best-practice corn wet mill in Habiganj, Bangladesh: 150 TPD crushing, six product streams, and a 100 TPD modified starch line for food, pharmaceutical, textile, and feed.";
+
+export function pageMeta(title: string, description: string, path: string): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title,
+      description,
+      url: path,
+    },
+    twitter: {
+      title,
+      description,
+    },
+  };
+}
 
 export const SITE_KEYWORDS = [
   "Alternate Chemical Industry Ltd",

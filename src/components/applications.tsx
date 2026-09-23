@@ -1,13 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { industryUses } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SectionIntro } from "@/components/reveal";
-import { useSite } from "@/components/site-context";
 
 export function Applications() {
-  const { setFilter } = useSite();
 
   return (
     <section id="applications" className="section-y bg-white">
@@ -26,13 +25,9 @@ export function Applications() {
             <span>Specifications</span>
           </div>
           {industryUses.map((row, index) => (
-            <button
+            <Link
               key={row.id}
-              type="button"
-              onClick={() => {
-                setFilter(row.id);
-                document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
-              }}
+              href={`/products?sector=${row.id}`}
               className={cn(
                 "grid w-full cursor-pointer gap-2 px-5 py-5 text-left transition hover:bg-lime/10 md:grid-cols-[1.1fr_1.3fr_1.8fr_auto] md:items-center md:gap-4 md:px-6",
                 index % 2 === 0 ? "bg-surface" : "bg-white",
@@ -45,7 +40,7 @@ export function Applications() {
                 View grades
                 <ArrowUpRight className="h-4 w-4" />
               </span>
-            </button>
+            </Link>
           ))}
         </div>
         <p className="mt-4 text-xs leading-5 text-muted">
