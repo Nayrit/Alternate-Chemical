@@ -64,10 +64,10 @@ export function Plant() {
                       stroke={on ? "#6BB634" : "rgba(107,182,52,0.45)"}
                       strokeWidth={on ? 3 : 1.4}
                     />
-                    <text x={item.x + 16} y={item.y + 32} fill="#6BB634" fontSize="13" fontFamily="var(--font-plex), monospace">
+                    <text x={item.x + 16} y={item.y + 32} fill="#6BB634" fontSize="13" fontFamily="var(--font-source-sans), sans-serif">
                       {item.code}
                     </text>
-                    <text x={item.x + 16} y={item.y + 58} fill="#ffffff" fontSize="18" fontFamily="var(--font-syne), sans-serif">
+                    <text x={item.x + 16} y={item.y + 58} fill="#ffffff" fontSize="18" fontFamily="var(--font-source-serif), serif">
                       {item.svg}
                     </text>
                   </g>

@@ -1,29 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Plus_Jakarta_Sans, Syne } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
+const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-jakarta",
+  variable: "--font-source-sans",
   display: "swap",
 });
 
-const syne = Syne({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
-const plex = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex",
+  weight: ["500", "600", "700"],
+  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -85,7 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${syne.variable} ${plex.variable} h-full antialiased`}
+      className={`${sourceSans.variable} ${sourceSerif.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-surface font-sans text-ink" suppressHydrationWarning>

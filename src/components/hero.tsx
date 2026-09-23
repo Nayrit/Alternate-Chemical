@@ -45,7 +45,7 @@ export function Hero() {
           <p className="font-mono text-[11px] tracking-[0.22em] text-forest uppercase">
             Habiganj · Corn wet milling · Commissioning {company.commissioning}
           </p>
-          <h1 className="mt-4 max-w-4xl font-headline text-[clamp(2.15rem,2.4vw+1rem,6.5rem)] leading-[0.96] tracking-tight text-balance text-ink">
+          <h1 className="mt-4 max-w-4xl font-headline text-[clamp(2.15rem,2.4vw+1rem,6.5rem)] leading-[1.08] tracking-tight text-balance text-ink">
             {company.headline}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted md:text-lg">

@@ -56,7 +56,7 @@ export function SectionIntro({
       </p>
       <Heading
         className={cn(
-          "mt-3 font-headline text-3xl leading-[0.98] tracking-tight text-balance sm:text-4xl md:text-5xl 3xl:text-6xl",
+          "mt-3 font-headline text-3xl leading-[1.12] tracking-tight text-balance sm:text-4xl md:text-5xl 3xl:text-6xl",
           invert ? "text-white" : "text-ink",
         )}
       >

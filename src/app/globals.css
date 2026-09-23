@@ -7,9 +7,9 @@
   --color-ink-2: #0b1e13;
   --color-surface: #f8faf8;
   --color-muted: #3e5648;
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-headline: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex), ui-monospace, monospace;
+  --font-sans: var(--font-source-sans), "Segoe UI", sans-serif;
+  --font-headline: var(--font-source-serif), "Iowan Old Style", "Palatino Linotype", serif;
+  --font-mono: var(--font-source-sans), "Segoe UI", sans-serif;
   --breakpoint-3xl: 120rem;
   --breakpoint-4xl: 160rem;
 }
@@ -88,7 +88,7 @@ html {
 body {
   background: #f8faf8;
   color: #081c15;
-  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-source-sans), "Segoe UI", sans-serif;
   overflow-x: clip;
 }
 
