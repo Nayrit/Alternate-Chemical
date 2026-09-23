@@ -1,24 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { industryUses, type Sector } from "@/lib/data";
+import { industryUses } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SectionIntro } from "@/components/reveal";
 import { SectionMore } from "@/components/section-more";
-import { useSite } from "@/components/site-context";
 
 export function Applications() {
-  const pathname = usePathname();
-  const { setFilter } = useSite();
-  const onHome = pathname === "/";
-
-  const openGrades = (id: Sector) => {
-    setFilter(id);
-    document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section id="applications" className="section-y bg-white">
       <div className="shell">
@@ -51,11 +40,7 @@ export function Applications() {
                 </span>
               </>
             );
-            return onHome ? (
-              <button key={row.id} type="button" onClick={() => openGrades(row.id)} className={className}>
-                {body}
-              </button>
-            ) : (
+            return (
               <Link key={row.id} href={`/products?sector=${row.id}`} className={className}>
                 {body}
               </Link>
