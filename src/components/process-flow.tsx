@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FINISHED_KG_PER_DAY, processSteps } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
 
 export function ProcessFlow() {
   const [active, setActive] = useState(processSteps[0].id);
@@ -107,6 +108,7 @@ export function ProcessFlow() {
             </motion.article>
           </AnimatePresence>
         </div>
+        <SectionMore href="/milling" label="Every milling station, written out" />
       </div>
     </section>
   );

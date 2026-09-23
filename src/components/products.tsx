@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, FileDown, FlaskConical } from "lucide-react";
 import { FINISHED_KG_PER_DAY, products, sectors, type Product, type Sector } from "@/lib/data";
 import { downloadDatasheet } from "@/lib/spec-pdf";
 import { cn } from "@/lib/utils";
 import { SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
 import { useSite } from "@/components/site-context";
 
 const filters: { id: Sector | "all"; label: string }[] = [
@@ -17,13 +18,20 @@ const filters: { id: Sector | "all"; label: string }[] = [
 ];
 
 export function Products({ initialFilter = "all" }: { initialFilter?: Sector | "all" }) {
-  const { tray, toggleTray } = useSite();
+  const { tray, toggleTray, filter: homeFilter, setFilter } = useSite();
   const router = useRouter();
-  const [filter, setFilter] = useState<Sector | "all">(initialFilter);
+  const pathname = usePathname();
+  const onCatalog = pathname === "/products";
+  const [localFilter, setLocalFilter] = useState<Sector | "all">(initialFilter);
+  const filter = onCatalog ? localFilter : homeFilter;
 
   const select = (id: Sector | "all") => {
+    if (onCatalog) {
+      setLocalFilter(id);
+      router.replace(id === "all" ? "/products" : `/products?sector=${id}`, { scroll: false });
+      return;
+    }
     setFilter(id);
-    router.replace(id === "all" ? "/products" : `/products?sector=${id}`, { scroll: false });
   };
   const visible =
     filter === "all" ? products : products.filter((product) => product.categories.includes(filter));
@@ -80,6 +88,7 @@ export function Products({ initialFilter = "all" }: { initialFilter?: Sector | "
             ))}
           </AnimatePresence>
         </motion.div>
+        <SectionMore href="/products" label="Product register and grade pages" />
       </div>
     </section>
   );

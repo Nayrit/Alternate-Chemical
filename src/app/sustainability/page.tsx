@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PlantDepth } from "@/components/deeper";
 import { Plant } from "@/components/plant";
 import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
@@ -14,6 +15,7 @@ export default function SustainabilityPage() {
     <PageMain>
       <Crumb label="Sustainability" />
       <Plant />
+      <PlantDepth />
     </PageMain>
   );
 }

@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { products } from "@/lib/data";
 import { useSite } from "@/components/site-context";
 
 export function SampleTray() {
-  const { tray, clearTray } = useSite();
+  const { tray, clearTray, openRfq } = useSite();
   const names = tray
     .map((id) => products.find((product) => product.id === id)?.name)
     .filter((name): name is string => Boolean(name));
@@ -31,12 +30,13 @@ export function SampleTray() {
             <button type="button" onClick={clearTray} className="min-h-11 cursor-pointer rounded-full px-3 py-2 text-sm text-white/70">
               Clear
             </button>
-            <Link
-              href={`/request?intent=sample&products=${tray.join(",")}`}
-              className="inline-flex min-h-11 items-center rounded-full bg-lime px-4 py-2 text-sm font-semibold text-ink"
+            <button
+              type="button"
+              onClick={() => openRfq({ intent: "sample", productIds: tray })}
+              className="inline-flex min-h-11 cursor-pointer items-center rounded-full bg-lime px-4 py-2 text-sm font-semibold text-ink"
             >
               Request samples
-            </Link>
+            </button>
           </div>
         </motion.div>
       ) : null}

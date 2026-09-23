@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ImportDepth } from "@/components/deeper";
 import { Market } from "@/components/market";
 import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
@@ -14,6 +15,7 @@ export default function ImportSubstitutionPage() {
     <PageMain>
       <Crumb label="Import substitution" />
       <Market />
+      <ImportDepth />
     </PageMain>
   );
 }

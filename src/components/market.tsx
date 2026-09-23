@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CountUp } from "@/components/count-up";
 import { SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
 
 export function Market() {
   const [view, setView] = useState<"volume" | "tariff">("volume");
@@ -158,6 +159,7 @@ export function Market() {
             Revenue tariff schedule via USDA FAS, Dhaka, March 2025. WTO, 2024.
           </p>
         </article>
+        <SectionMore href="/import-substitution" label="Origin table and the 2023 import record" />
       </div>
     </section>
   );

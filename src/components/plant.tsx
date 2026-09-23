@@ -5,6 +5,7 @@ import { esg, plantZones } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { CountUp } from "@/components/count-up";
 import { SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
 
 export function Plant() {
   const [selected, setSelected] = useState("modified");
@@ -141,6 +142,7 @@ export function Plant() {
             </p>
           </div>
         </details>
+        <SectionMore href="/sustainability" label="Every zone on the site plan" tone="lime" />
       </div>
     </section>
   );

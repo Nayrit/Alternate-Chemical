@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { Component, type ReactNode } from "react";
 import { ArrowDownRight, Building2 } from "lucide-react";
 import { company } from "@/lib/data";
+import { useSite } from "@/components/site-context";
 import { CountUp } from "@/components/count-up";
 import { OrbitalMark } from "@/components/orbital-mark";
 
@@ -38,6 +38,7 @@ const tickers = [
 ];
 
 export function Hero() {
+  const { openProcurement } = useSite();
   return (
     <section id="top" className="pt-[calc(4.6rem+env(safe-area-inset-top))]">
       <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
@@ -54,20 +55,21 @@ export function Hero() {
             streams for food, pharmaceutical, textile, and feed buyers.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Link
-              href="/products"
+            <a
+              href="#products"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#00562d]"
             >
               Explore Product Specifications
               <ArrowDownRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/procurement"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-forest/20 bg-white px-5 py-3 text-sm font-semibold text-forest transition hover:border-lime/50 hover:shadow-[0_16px_40px_-28px_rgba(107,182,52,0.9)]"
+            </a>
+            <button
+              type="button"
+              onClick={openProcurement}
+              className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-forest/20 bg-white px-5 py-3 text-sm font-semibold text-forest transition hover:border-lime/50 hover:shadow-[0_16px_40px_-28px_rgba(107,182,52,0.9)]"
             >
               <Building2 className="h-4 w-4" />
               Procurement Portal
-            </Link>
+            </button>
           </div>
           <p className="mt-6 max-w-xl text-sm leading-6 text-muted">
             Figures on this site are design capacities from the 2026 company profile. Full

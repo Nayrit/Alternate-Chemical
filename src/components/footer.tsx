@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { company, nav } from "@/lib/data";
+import { useSite } from "@/components/site-context";
 
 const seals = [
   { kicker: "FAO", title: "Aligned quality", detail: "Intake, process, and final grading" },
@@ -11,6 +12,7 @@ const seals = [
 ];
 
 export function Footer() {
+  const { openRfq } = useSite();
   return (
     <footer className="bg-ink text-white">
       <div className="bg-forest">
@@ -22,15 +24,20 @@ export function Footer() {
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/request" className="rounded-full bg-lime px-5 py-3 text-center text-sm font-semibold text-ink">
+            <button
+              type="button"
+              onClick={() => openRfq()}
+              className="cursor-pointer rounded-full bg-lime px-5 py-3 text-center text-sm font-semibold text-ink"
+            >
               Request Commercial Quotation
-            </Link>
-            <Link
-              href="/request?intent=sample"
-              className="rounded-full border border-white/30 px-5 py-3 text-center text-sm font-semibold text-white"
+            </button>
+            <button
+              type="button"
+              onClick={() => openRfq({ intent: "sample" })}
+              className="cursor-pointer rounded-full border border-white/30 px-5 py-3 text-center text-sm font-semibold text-white"
             >
               Sample Request
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -76,13 +83,13 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/import-substitution" className="text-white/80 hover:text-white">
+              <Link href="/#advantage" className="text-white/80 hover:text-white">
                 Import substitution
               </Link>
             </li>
             <li>
               <Link href="/procurement" className="text-white/80 hover:text-white">
-                Procurement
+                Procurement page
               </Link>
             </li>
           </ul>

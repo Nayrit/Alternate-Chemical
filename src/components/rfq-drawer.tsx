@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   lanes,
@@ -19,9 +19,11 @@ const steps = ["Sector", "Product & volume", "Delivery", "Company & estimate"];
 export function RequestForm({
   intent = "quotation",
   productIds = [],
+  plain = false,
 }: {
   intent?: "sample" | "quotation";
   productIds?: string[];
+  plain?: boolean;
 }) {
   const { clearTray } = useSite();
   const incoming = productIds.filter((id) => productById(id));
@@ -96,17 +98,25 @@ export function RequestForm({
     if (sampleMode) clearTray();
   };
 
+  const Title = plain ? "h2" : "h1";
+
   return (
-    <section className="section-y bg-surface">
-      <div className="shell">
-        <div className="mx-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-forest/12 bg-[#f8faf8] 3xl:max-w-4xl">
+    <section className={plain ? "flex min-h-0 flex-1 flex-col" : "section-y bg-surface"}>
+      <div className={plain ? "flex min-h-0 flex-1 flex-col" : "shell"}>
+        <div
+          className={
+            plain
+              ? "flex min-h-0 flex-1 flex-col bg-[#f8faf8]"
+              : "mx-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-forest/12 bg-[#f8faf8] 3xl:max-w-4xl"
+          }
+        >
             <div className="border-b border-forest/12 px-5 py-5 sm:px-8">
               <p className="font-mono text-[11px] tracking-[0.18em] text-forest uppercase">
                 {sampleMode ? "Sample request" : "Commercial quotation"}
               </p>
-              <h1 className="mt-2 font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
+              <Title className="mt-2 font-headline text-3xl tracking-tight text-balance text-ink sm:text-4xl">
                 {sampleMode ? "Evaluation samples" : "Request a planning quotation"}
-              </h1>
+              </Title>
             </div>
             <ol className="grid grid-cols-4 gap-2 px-5 py-4">
               {steps.map((label, index) => (
@@ -343,6 +353,46 @@ export function RequestForm({
         </div>
       </div>
     </section>
+  );
+}
+
+export function RfqDrawer() {
+  const { rfqOpen, closeRfq, rfqSession, launch } = useSite();
+
+  useEffect(() => {
+    if (!rfqOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeRfq();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [rfqOpen, closeRfq]);
+
+  if (!rfqOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[70]">
+      <button type="button" aria-label="Close request" className="absolute inset-0 cursor-pointer bg-ink/55" onClick={closeRfq} />
+      <aside className="absolute inset-y-0 right-0 flex w-full max-w-xl flex-col overflow-hidden bg-[#f8faf8] shadow-2xl">
+        <div className="flex items-center justify-between gap-3 px-5 pt-4">
+          <p className="font-mono text-[11px] tracking-[0.16em] text-forest uppercase">Commercial desk</p>
+          <button type="button" onClick={closeRfq} className="min-h-11 cursor-pointer rounded-full px-3 text-sm font-semibold text-forest">
+            Close
+          </button>
+        </div>
+        <RequestForm
+          key={`${rfqSession}-${launch.intent}-${launch.productIds.join(",")}`}
+          intent={launch.intent}
+          productIds={launch.productIds}
+          plain
+        />
+      </aside>
+    </div>
   );
 }
 

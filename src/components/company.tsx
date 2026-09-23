@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import { company, glance } from "@/lib/data";
 import { Reveal, SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
 
 export function Company() {
   return (
@@ -69,6 +70,7 @@ export function Company() {
             </div>
           ))}
         </dl>
+        <SectionMore href="/company" label="Company schedule and design basis" />
       </div>
     </section>
   );

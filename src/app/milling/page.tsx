@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MillingDepth } from "@/components/deeper";
 import { ProcessFlow } from "@/components/process-flow";
 import { Crumb, PageMain } from "@/components/page-main";
 import { pageMeta } from "@/lib/site";
@@ -14,6 +15,7 @@ export default function MillingPage() {
     <PageMain>
       <Crumb label="Milling technology" />
       <ProcessFlow />
+      <MillingDepth />
     </PageMain>
   );
 }

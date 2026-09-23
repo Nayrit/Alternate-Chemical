@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ProductRegister } from "@/components/deeper";
 import { Products } from "@/components/products";
 import { Crumb, PageMain } from "@/components/page-main";
 import type { Sector } from "@/lib/data";
@@ -28,6 +29,7 @@ export default async function ProductsPage({
     <PageMain>
       <Crumb label="Products" />
       <Products key={initialFilter} initialFilter={initialFilter} />
+      <ProductRegister />
     </PageMain>
   );
 }

@@ -1,12 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { industryUses } from "@/lib/data";
+import { industryUses, type Sector } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SectionIntro } from "@/components/reveal";
+import { SectionMore } from "@/components/section-more";
+import { useSite } from "@/components/site-context";
 
 export function Applications() {
+  const pathname = usePathname();
+  const { setFilter } = useSite();
+  const onHome = pathname === "/";
+
+  const openGrades = (id: Sector) => {
+    setFilter(id);
+    document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section id="applications" className="section-y bg-white">
@@ -24,29 +35,38 @@ export function Applications() {
             <span>Function</span>
             <span>Specifications</span>
           </div>
-          {industryUses.map((row, index) => (
-            <Link
-              key={row.id}
-              href={`/products?sector=${row.id}`}
-              className={cn(
-                "grid w-full cursor-pointer gap-2 px-5 py-5 text-left transition hover:bg-lime/10 md:grid-cols-[1.1fr_1.3fr_1.8fr_auto] md:items-center md:gap-4 md:px-6",
-                index % 2 === 0 ? "bg-surface" : "bg-white",
-              )}
-            >
-              <span className="font-headline text-xl tracking-tight text-ink">{row.industry}</span>
-              <span className="text-sm font-medium text-forest">{row.products}</span>
-              <span className="text-sm leading-6 text-muted">{row.fn}</span>
-              <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
-                View grades
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </Link>
-          ))}
+          {industryUses.map((row, index) => {
+            const className = cn(
+              "grid w-full cursor-pointer gap-2 px-5 py-5 text-left transition hover:bg-lime/10 md:grid-cols-[1.1fr_1.3fr_1.8fr_auto] md:items-center md:gap-4 md:px-6",
+              index % 2 === 0 ? "bg-surface" : "bg-white",
+            );
+            const body = (
+              <>
+                <span className="font-headline text-xl tracking-tight text-ink">{row.industry}</span>
+                <span className="text-sm font-medium text-forest">{row.products}</span>
+                <span className="text-sm leading-6 text-muted">{row.fn}</span>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
+                  View grades
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
+              </>
+            );
+            return onHome ? (
+              <button key={row.id} type="button" onClick={() => openGrades(row.id)} className={className}>
+                {body}
+              </button>
+            ) : (
+              <Link key={row.id} href={`/products?sector=${row.id}`} className={className}>
+                {body}
+              </Link>
+            );
+          })}
         </div>
         <p className="mt-4 text-xs leading-5 text-muted">
           Textile is identified as the largest consumer of corn starch in Bangladesh. Source: USDA FAS,
           Grain and Feed Annual, Dhaka, March 2025. Apparel export value: WTO trade data, 2024.
         </p>
+        <SectionMore href="/applications" label="Industrial applications, in full" />
       </div>
     </section>
   );

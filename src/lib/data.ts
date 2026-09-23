@@ -36,11 +36,11 @@ export const company = {
 };
 
 export const nav = [
-  { href: "/company", id: "company", label: "Company" },
-  { href: "/milling", id: "milling", label: "Milling Tech" },
-  { href: "/products", id: "products", label: "Products" },
-  { href: "/applications", id: "applications", label: "Industrial Applications" },
-  { href: "/sustainability", id: "sustainability", label: "Sustainability" },
+  { href: "/#company", page: "/company", id: "company", label: "Company" },
+  { href: "/#milling", page: "/milling", id: "milling", label: "Milling Tech" },
+  { href: "/#products", page: "/products", id: "products", label: "Products" },
+  { href: "/#applications", page: "/applications", id: "applications", label: "Industrial Applications" },
+  { href: "/#sustainability", page: "/sustainability", id: "sustainability", label: "Sustainability" },
 ] as const;
 
 export const siteRoutes = [

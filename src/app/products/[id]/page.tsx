@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ProductNeighbors } from "@/components/deeper";
 import { ProductDetail } from "@/components/product-detail";
 import { Crumb, PageMain } from "@/components/page-main";
 import { products } from "@/lib/data";
@@ -29,6 +30,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     <PageMain>
       <Crumb label={product.name} parent={{ href: "/products", label: "Products" }} />
       <ProductDetail product={product} />
+      <ProductNeighbors product={product} />
     </PageMain>
   );
 }
