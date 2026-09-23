@@ -1,5 +1,5 @@
 import { Hero } from "@/components/hero";
-import { HomeChapters } from "@/components/home-chapters";
+import { HomeSummary } from "@/components/home-summary";
 import { JsonLd } from "@/components/json-ld";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
     <main id="content">
       <JsonLd />
       <Hero />
-      <HomeChapters />
+      <HomeSummary />
     </main>
   );
 }
